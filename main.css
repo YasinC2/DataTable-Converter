@@ -1,0 +1,429 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.2s, border-color 0.2s;
+}
+
+:root {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --border: #e2e8f0;
+    --accent: #3b82f6;
+    --accent-hover: #2563eb;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    --code-bg: #f1f5f9;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+[data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --border: #334155;
+    --accent: #60a5fa;
+    --accent-hover: #93c5fd;
+    --code-bg: #2d3a4f;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+}
+
+body {
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+button,
+input,
+select {
+    font-family: inherit !important;
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+    outline: none;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* هدر و نوار ابزار */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.logo span {
+    position: relative;
+    top: 2px;
+}
+
+.logo i {
+    color: var(--accent);
+    font-size: 2rem;
+}
+
+.toolbar {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.theme-toggle,
+.help-btn {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* بخش اصلی */
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* کارت‌های ورودی و خروجی */
+.card {
+    background: var(--bg-secondary);
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.card-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+}
+
+.format-badge {
+    background: var(--accent);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+}
+
+.detected-format {
+    background: var(--code-bg);
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* کنترل‌ها */
+.controls {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.select-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+select,
+input[type="text"] {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.btn {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+}
+
+.btn-success {
+    background: var(--success);
+    color: white;
+    border: none;
+}
+
+/* آپلود فایل */
+.upload-area {
+    padding: 1.5rem;
+    border: 2px dashed var(--border);
+    border-radius: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.upload-area:hover {
+    border-color: var(--accent);
+}
+
+.upload-area input {
+    display: none;
+}
+
+/* ویرایشگر کد */
+.code-editor {
+    position: relative;
+    height: 400px;
+    direction: ltr;
+}
+
+#codeOutput {
+    overflow: auto;
+    height: calc(100% - 171px);
+}
+
+#codeOutput pre,
+#codeOutput code {
+    height: 100%;
+}
+
+.code-input,
+.code-output {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    background: var(--code-bg);
+    border: none;
+    color: var(--text-primary);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    resize: none;
+    max-height: calc(100% - 38px);
+}
+
+.code-output {
+    overflow: auto;
+    white-space: pre-wrap;
+    margin: 0;
+}
+
+.stats-bar {
+    padding: 0.5rem 1rem;
+    background: var(--code-bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Tree View برای JSON */
+.tree-view {
+    padding: 1rem;
+    background: var(--code-bg);
+    height: 400px;
+    overflow: auto;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+}
+
+.tree-node {
+    margin-left: 0.75rem;
+    position: relative;
+}
+
+.tree-node summary {
+    cursor: pointer;
+    color: var(--accent);
+}
+
+/* نمونه‌های آماده */
+.samples {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    padding: 0 1.5rem 1rem;
+}
+
+.sample-chip {
+    background: var(--code-bg);
+    padding: 0.25rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border: 1px solid var(--border);
+}
+
+.sample-chip:hover {
+    background: var(--accent);
+    color: white;
+}
+
+/* تنظیمات پیشرفته */
+.advanced-settings {
+    padding: 1rem 1.5rem;
+    background: var(--code-bg);
+    border-top: 1px solid var(--border);
+    display: none;
+}
+
+.advanced-settings.show {
+    display: block;
+}
+
+/* نوتیفیکیشن */
+.notification {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    background: var(--bg-secondary);
+    border-right: 4px solid var(--success);
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+    display: none;
+    align-items: center;
+    gap: 1rem;
+    z-index: 1000;
+}
+
+.notification.show {
+    display: flex;
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .toolbar {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* لودینگ */
+.loader {
+    border: 3px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+    display: none;
+}
+
+.progress-bar.active {
+    display: block;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--accent);
+    animation: progress 2s ease-in-out infinite;
+}
+
+@keyframes progress {
+    0% {
+        width: 0%;
+    }
+
+    50% {
+        width: 70%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.position-relative {
+    position: relative;
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+        <title>DataTable Converter | JSON, CSV, XML, HTML, Markdown</title>
+        <link rel="shortcut icon" href="icon.svg" type="image/svg+xml">
+
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+        <!-- Highlight.js for Syntax Highlighting -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+        <link rel="stylesheet" href="main.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <div class="logo">
+                    <img src="icon.svg" width="30">
+                    <span>DataTable Converter</span>
+                </div>
+                <div class="toolbar">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                        <span>Dark Mode</span>
+                    </button>
+                    <button class="help-btn" id="helpBtn">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Grid -->
+            <div class="main-grid">
+                <!-- Input Card -->
+                <div class="card position-relative">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-file-import"></i>
+                            <span>Input</span>
+                            <span class="detected-format" id="detectedFormat">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Auto Detect: JSON</span>
+                            </span>
+                        </div>
+                        <div class="controls">
+                            <select id="inputFormat">
+                                <option value="auto" selected>Auto Detect</option>
+                                <option value="json">JSON</option>
+                                <option value="csv">CSV</option>
+                                <option value="xml">XML</option>
+                                <option value="html">HTML Table</option>
+                                <option value="markdown">Markdown Table</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                        <p>Drag & drop file here or click to upload</p>
+                        <p style="font-size: 0.875rem; color: var(--text-secondary);">Supported formats: JSON, CSV, XML, HTML, MD</p>
+                        <input type="file" id="fileInput" accept=".json,.csv,.xml,.html,.md,.txt" multiple>
+                    </div>
+
+                    <!-- Sample Data -->
+                    <div class="samples" id="samples">
+                        <span class="sample-chip" data-sample="json">📋 JSON Sample</span>
+                        <span class="sample-chip" data-sample="csv">📋 CSV Sample</span>
+                        <span class="sample-chip" data-sample="xml">📋 XML Sample</span>
+                        <span class="sample-chip" data-sample="html">📋 HTML Sample</span>
+                        <span class="sample-chip" data-sample="markdown">📋 Markdown Sample</span>
+                    </div>
+
+                    <!-- Input Editor -->
+                    <div class="code-editor">
+                        <textarea class="code-input" id="inputData" placeholder="Enter your data here..."></textarea>
+                    </div>
+
+                    <!-- Input Stats -->
+                    <div class="stats-bar" id="inputStats">
+                        <span><i class="fas fa-database"></i> Size: 0 B</span>
+                        <span><i class="fas fa-list"></i> Records: 0</span>
+                        <span><i class="fas fa-clock"></i> Last Change: -</span>
+                    </div>
+                </div>
+
+                <!-- Output Card -->
+                <div class="card position-relative">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-file-export"></i>
+                            <span>Output</span>
+                        </div>
+                        <div class="controls">
+                            <select id="outputFormat">
+                                <option value="json">JSON</option>
+                                <option value="csv" selected>CSV</option>
+                                <option value="xml">XML</option>
+                                <option value="html">HTML Table</option>
+                                <option value="markdown">Markdown Table</option>
+                            </select>
+                            <button class="btn" id="copyBtn" title="Copy to clipboard">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="btn btn-success" id="downloadBtn" title="Download file">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Settings -->
+                    <div class="advanced-settings" id="advancedSettings">
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <label>CSV Delimiter:</label>
+                            <select id="csvDelimiter">
+                                <option value=",">Comma (,)</option>
+                                <option value=";">Semicolon (;)</option>
+                                <option value=" ">Tab</option>
+                                <option value="|">Pipe (|)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- View Tabs -->
+                    <div style="border-bottom: 1px solid var(--border); padding: 0.5rem 1.5rem;">
+                        <button class="btn" id="showCodeBtn" style="background: var(--accent); color: white;">Code</button>
+                        <button class="btn" id="showTreeBtn">Tree View</button>
+                    </div>
+
+                    <!-- Code Output -->
+                    <div class="code-editor" id="codeOutput">
+                        <pre class="code-output" id="outputData"><code></code></pre>
+                    </div>
+
+                    <!-- Tree Output (Hidden by default) -->
+                    <div class="tree-view" id="treeOutput" style="display: none;">
+                        <div id="jsonTree"></div>
+                    </div>
+
+                    <!-- Output Stats -->
+                    <div class="stats-bar" id="outputStats">
+                        <span><i class="fas fa-database"></i> Size: 0 B</span>
+                        <span><i class="fas fa-check-circle"></i> Status: Ready</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar for Batch Conversion -->
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill"></div>
+            </div>
+
+            <!-- Notification -->
+            <div class="notification" id="notification">
+                <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                <span id="notificationMessage">Operation completed successfully</span>
+            </div>
+        </div>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/xml-js@1.6.11/dist/xml-js.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+        <!-- Main Application Script -->
+        <script src="main.js"></script>
+    </body>
+
+</html>
